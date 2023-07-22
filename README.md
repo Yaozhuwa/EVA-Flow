@@ -1,9 +1,7 @@
 # EVA-Flow: Towards Anytime Optical Flow Estimation with Event Cameras
 The official implementation code repository for [EVA-Flow: Towards Anytime Optical Flow Estimation with Event Cameras](https://arxiv.org/abs/2307.05033)
 
-<div style="text-align: center;">
-    <img src="assets/concept-show.png" alt="Concept Show" width="600" style="display: block; margin: 0 auto;" />
-</div>
+<img src="assets/concept-show.png" width="600">
 
 
 ```
