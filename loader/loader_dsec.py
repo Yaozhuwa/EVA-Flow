@@ -398,7 +398,7 @@ class VoxelGridDatasetProviderDSEC:
         self.valid_set_cropped = Subset(self.dataset_cropped, self.valid_indices)
 
 
-class FastVoxelGridSequenceDSEC(Dataset):
+class SingleVoxelGridSequenceDSEC(Dataset):
     def __init__(self, events_sequence_path: Path, flow_sequence_path: Path,
                  bins=15, crop_size=None, return_raw=False, unified=True, norm=True):
         assert events_sequence_path.is_dir()
@@ -691,7 +691,7 @@ class FastVoxelGridSequenceDSEC(Dataset):
     def __getitem__(self, idx):
         return self.get_data_sample(idx)
 
-class FastVoxelGridDatasetProviderDSEC:
+class SingleVoxelGridDatasetProviderDSEC:
     def __init__(self, dataset_path: Path, bins=15, crop_size=[288, 384],
                  random_split_seed: int = 42, train_ratio=0.8, return_raw=False, unified=True, norm=True):
         events_sequence_path = dataset_path / 'Train' / 'train_events'
@@ -705,14 +705,14 @@ class FastVoxelGridDatasetProviderDSEC:
         dataset_sequences = list()
         dataset_sequences_cropped = list()
         for sequence in valid_sequences:
-            dataset_sequences.append(FastVoxelGridSequenceDSEC(events_sequence_path / sequence,
+            dataset_sequences.append(SingleVoxelGridSequenceDSEC(events_sequence_path / sequence,
                                                              flow_sequence_path / sequence,
                                                              bins=bins,
                                                              crop_size=None,
                                                              return_raw=return_raw,
                                                              unified=unified,
                                                              norm=norm))
-            dataset_sequences_cropped.append(FastVoxelGridSequenceDSEC(events_sequence_path / sequence,
+            dataset_sequences_cropped.append(SingleVoxelGridSequenceDSEC(events_sequence_path / sequence,
                                                                      flow_sequence_path / sequence,
                                                                      bins=bins,
                                                                      crop_size=crop_size,
@@ -740,7 +740,7 @@ class FastVoxelGridDatasetProviderDSEC:
         self.train_set_cropped = Subset(self.dataset_cropped, self.train_indices)
         self.valid_set_cropped = Subset(self.dataset_cropped, self.valid_indices)
 
-class FastVoxelGridTestSequenceDSEC(Dataset):
+class SingleVoxelGridTestSequenceDSEC(Dataset):
     def __init__(self, events_sequence_path: Path, forward_ts_file: Path, bins=15, return_raw=False, unified=True, norm=True):
         """
         get a sequence
@@ -1040,7 +1040,7 @@ if __name__ == '__main__':
 
     import utils.setupTensor
 
-    dsec_provider = FastVoxelGridDatasetProviderDSEC(Path(args.dataset_path), bins=args.bins,
+    dsec_provider = SingleVoxelGridDatasetProviderDSEC(Path(args.dataset_path), bins=args.bins,
                                                    crop_size=args.crop_size,
                                                    random_split_seed=args.random_split_seed,
                                                    train_ratio=args.train_ratio,
